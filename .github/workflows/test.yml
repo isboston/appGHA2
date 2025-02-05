@@ -1,4 +1,4 @@
-name: Test1
+name: Install OneClickInstall Docker
 
 on:
   push:
