@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-WORKFLOW_FILE=".github/workflows/ci-update.yml"
+WORKFLOW_FILE=".github/workflows/test.yml"
 README_FILE="README.md"
 if ! command -v yq &> /dev/null; then
   sudo wget -q https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
