@@ -15,5 +15,5 @@ The installation scripts support the following operating systems:
 - RHEL 9 (Red Hat Enterprise Linux 9)
 <!-- OS-SUPPORT-LIST-END -->
 
-## Installing ONLYOFFICE Docs using the provided script
+## Installing Docs using the provided script
 
