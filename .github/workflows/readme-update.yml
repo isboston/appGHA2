@@ -3,9 +3,9 @@ name: Update README
 on:
   push:
     paths:
-      - '.github/workflows/ci-update.yml'
+      - '.github/workflows/test.yml'
     branches:
-      - feature/add-support-os-readme
+      - main
 
 jobs:
   update-readme:
