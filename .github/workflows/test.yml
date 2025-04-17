@@ -6,7 +6,7 @@ on:
       - develop
 
 jobs:
-  testing:
+  update-test:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
