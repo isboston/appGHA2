@@ -1,4 +1,4 @@
-name: Test1
+name: Install OneClickInstall Docker
 
 on:
   push:
@@ -12,7 +12,5 @@ jobs:
       - name: Print Hello Message
         run: echo "Hello world from Testing job"
 
-      - name: Simulate failure
-        run: exit 1
 
 
