@@ -5,6 +5,7 @@ The installation scripts support the following operating systems:
 - CentOS 8 Stream
 - CentOS 9 Stream
 - Debian 10
+- Test
 - Debian 11
 - Debian 12
 - Ubuntu 18.04

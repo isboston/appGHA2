@@ -8,19 +8,36 @@ on:
       - main
 
 permissions:
-    contents: write
+  contents: write
 
 jobs:
   update-readme:
     runs-on: ubuntu-latest
-
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
 
-      - name: Run update-readme script
+      - name: Install yq
         run: |
-          chmod +x .github/scripts/readme-update.sh && ./.github/scripts/readme-update.sh
+          sudo wget -q https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
+          sudo chmod +x /usr/local/bin/yq
+
+      - name: Update OS list in README
+        run: |
+          OS_LIST=$(yq -r '.jobs["update-test"].strategy.matrix.include[].name' .github/workflows/test.yml | sed 's/^/- /')
+          {
+            echo '<!-- OS-SUPPORT-LIST-START -->'
+            echo "$OS_LIST"
+            echo '<!-- OS-SUPPORT-LIST-END -->'
+          } > os_block.tmp
+
+          awk '
+            BEGIN { in_block=0 }
+            /<!-- OS-SUPPORT-LIST-START -->/ { print_file="yes"; while ((getline line < "os_block.tmp") > 0) print line; in_block=1; next }
+            /<!-- OS-SUPPORT-LIST-END -->/ { in_block=0; next }
+            !in_block { print }
+          ' README.md > README.new && mv README.new README.md
+          rm os_block.tmp
 
       - name: Commit changes (if any)
         run: |
@@ -35,4 +52,5 @@ jobs:
           else
             echo "No changes to commit"
           fi
+
 

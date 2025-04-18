@@ -1,0 +1,38 @@
+name: Update README
+
+on:
+  push:
+    paths:
+      - '.github/workflows/test.yml'
+    branches:
+      - main
+
+permissions:
+    contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Run update-readme script
+        run: |
+          chmod +x .github/scripts/readme-update.sh && ./.github/scripts/readme-update.sh
+
+      - name: Commit changes (if any)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git add README.md
+            git commit -m "Update OS list in README"
+            git pull --rebase --autostash
+            git push
+          else
+            echo "No changes to commit"
+          fi
+
